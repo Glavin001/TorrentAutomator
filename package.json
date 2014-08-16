@@ -1,0 +1,34 @@
+{
+  "name": "TorrentAutomator",
+  "version": "0.0.0",
+  "description": "Automate the task of searching for Torrents and sending them to Transmission-Daemon to download. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Glavin001/TorrentAutomator.git"
+  },
+  "keywords": [
+    "torrent",
+    "download",
+    "transmission",
+    "daemon",
+    "server",
+    "web",
+    "app"
+  ],
+  "author": "Glavin Wiechert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Glavin001/TorrentAutomator/issues"
+  },
+  "homepage": "https://github.com/Glavin001/TorrentAutomator",
+  "dependencies": {
+    "node-kickass-json": "^0.1.1",
+    "transmission": "^0.4.0",
+    "feathers": "^1.0.0-pre.5",
+    "body-parser": "^1.6.4"
+  }
+}

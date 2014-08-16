@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TorrentAutomator</title>
+
+  <!-- Bootstrap -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">TorrentAutomator</h3>
+      </div>
+      <div class="panel-body">
+
+        <form role="form">
+          <div class="form-group">
+            <label>Search for a Torrent
+              <input type="query" class="form-control" id="torrent-search-query" placeholder="Enter search query">
+            </label>
+          </div>
+          <button class="btn btn-default search-torrents-btn">Search for Torrents</button>
+        </form>
+
+      </div>
+    </div>
+
+    <script id="torrents-template" type="text/x-handlebars-template">
+      {{#if torrents}}
+
+          {{#each torrents}}
+            <div class="panel panel-primary animated fadeInUp">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                    <button class="btn btn-success download-torrent-btn" data-torrent="{{jsonStringify this}}">Download Torrent</button>
+                    {{title}}
+                </h3>
+              </div>
+              <div class="panel-body">
+                {{jsonStringify this}}
+              </div>
+            </div>
+
+          {{/each}}
+
+        {{else}}
+          <div class="alert alert-danger">
+            No Torrents found. Please search above.
+          </div>
+        {{/if}}
+    </script>
+    <div class="torrents-list-output"></div>
+
+
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="bower_components/momentjs/min/moment-with-locales.min.js"></script>
+  <script src="bower_components/lodash/dist/lodash.min.js"></script>
+  <!-- Handlebars -->
+  <script src="bower_components/handlebars/handlebars.min.js"></script>
+  <!-- Helpers -->
+  <script>
+    Handlebars.registerHelper("formatDate", function(datetime, format) {
+      if (moment) {
+        return moment(datetime).format(format);
+      } else {
+        return datetime;
+      }
+    });
+
+    Handlebars.registerHelper("jsonStringify", function(obj) {
+      if (typeof obj === "object" || typeof obj === "array") {
+        return JSON.stringify(obj);
+      } else {
+        return obj;
+      }
+    });
+  </script>
+
+  <!-- Custom Scripts -->
+  <script src="scripts/main.js"></script>
+
+</body>
+
+</html>
