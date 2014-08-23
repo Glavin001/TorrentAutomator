@@ -13,7 +13,7 @@ module.exports = {
     console.log(query);
     kickassService.find({ query: { query: query } }, function(err, results) {
         // console.log(results);
-        var message = 'Found '+results.length+' Torrents.\n';
+        var message = 'Found '+results.length+' Torrent(s). Here are the top 5:\n';
         // List the available Torrents
         var len = Math.min(self.maxResults, results.length);
         console.log(len);

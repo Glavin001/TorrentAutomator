@@ -30,6 +30,7 @@
     "transmission": "^0.4.0",
     "feathers": "^1.0.0-pre.5",
     "body-parser": "^1.6.4",
-    "twilio": "^1.6.0"
+    "twilio": "^1.6.0",
+    "pretty-ms": "^1.0.0"
   }
 }

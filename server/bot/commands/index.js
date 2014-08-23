@@ -3,11 +3,12 @@ var async = require('async');
 module.exports = {
   allCommands: [
     require('./searchForTorrents'),
-    require('./downloadTorrent')
+    require('./downloadTorrent'),
+    require('./showDownloads')
   ],
   processInput: function(input, context, callback) {
     return this.getCommands(input, context, function(commands) {
-      console.log('commands', commands);
+      // console.log('commands', commands);
       // Get first available command
       var command = commands[0];
       // Check if command found
