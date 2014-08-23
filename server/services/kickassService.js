@@ -12,6 +12,7 @@ module.exports = {
     find: function(params, callback) {
         console.log(params);
         var query = params.query;
+        console.log('query: ', query);
         this.kickass.setQuery(query.query) // Set search Query parameter
         .setSort({
             field: query.field || 'seeders',

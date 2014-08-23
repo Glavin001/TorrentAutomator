@@ -26,3 +26,6 @@ node_modules
 
 # Bower
 app/bower_components/
+
+# Config
+config.json

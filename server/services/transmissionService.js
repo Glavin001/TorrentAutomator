@@ -1,5 +1,5 @@
 var Transmission = require('transmission');
-var config = require('../config.json');
+var config = require('../../config.json');
 
 module.exports = {
   transmission: null,
@@ -7,7 +7,7 @@ module.exports = {
   setup: function(app) {
     // Setup
     console.log('Setup Transmission');
-    console.log(config.transmission);
+    // console.log(config.transmission);
     this.transmission = new Transmission(config.transmission);
 
   },
@@ -31,9 +31,13 @@ module.exports = {
   create: function(data, params, callback) {
     console.log('create', data, params);
     var options = {};
-    this.transmission.addUrl(data.url, options, function(err, result) {
-        return callback(err, result);
-    });
+    if (!data.url) {
+      return callback(new Error('Missing Torrent URL field.'), null);
+    } else {
+      return this.transmission.addUrl(data.url, options, function(err, result) {
+          return callback(err, result);
+      });
+    }
   },
 
   // update: function(id, data, params, callback) {},
