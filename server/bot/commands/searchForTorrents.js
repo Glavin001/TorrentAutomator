@@ -19,18 +19,20 @@ module.exports = {
         for (var i=0; i<len; i++)
         {
           var torrent = results[i];
-          message += (i+1)+'. '+ torrent.title + '\n';
+          var downloadSizeInMB = torrent.size / 1000 / 1000;
+          var stats = (torrent.verified?'Verified and ':'') + Math.round(downloadSizeInMB * 100)/100 + ' MB with '+torrent.seeds+' seed and '+torrent.leechs+' leech';
+          message += (i+1)+'. '+ torrent.title + ' ('+stats+') \n';
         }
         // Create response
         var response = {
           'response': {
             'plain': message
-            }
+          }
         };
         // Save Torrents to context
         context.foundTorrents = results;
         // return
         return callback(err, response);
-    });
+      });
   }
 };
