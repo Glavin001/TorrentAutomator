@@ -32,7 +32,7 @@ module.exports = {
       'message': message,
       'meta': req.body
     }, function(error, result) {
-      console.log(error, result);
+      // console.log(error, result);
       var twiml = new twilio.TwimlResponse();
       if (error) {
         twiml.message(error.message);
@@ -40,6 +40,6 @@ module.exports = {
         twiml.message(result.response.plain);
       }
       res.send(twiml);
-      });
+    });
   }
 };

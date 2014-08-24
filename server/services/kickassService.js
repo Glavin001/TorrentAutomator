@@ -5,14 +5,14 @@ module.exports = {
 
     setup: function(app) {
         // Setup
-        console.log('Setup Kickass');
+        // console.log('Setup Kickass');
         this.kickass = new Kickass();
     },
 
     find: function(params, callback) {
-        console.log(params);
+        // console.log(params);
         var query = params.query;
-        console.log('query: ', query);
+        // console.log('query: ', query);
         this.kickass.setQuery(query.query) // Set search Query parameter
         .setSort({
             field: query.field || 'seeders',

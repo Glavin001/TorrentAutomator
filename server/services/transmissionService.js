@@ -6,7 +6,7 @@ module.exports = {
 
   setup: function(app) {
     // Setup
-    console.log('Setup Transmission');
+    // console.log('Setup Transmission');
     // console.log(config.transmission);
     this.transmission = new Transmission(config.transmission);
 
@@ -23,7 +23,7 @@ module.exports = {
         if (err) {
             return callback(err, result);
         }
-        console.log('bt.get returned ' + result.torrents.length + ' torrents');
+        // console.log('bt.get returned ' + result.torrents.length + ' torrents');
         return callback(result.torrents);
     });
   },
@@ -49,7 +49,7 @@ module.exports = {
         if (err) {
             return callback(err, null);
         }
-        console.log('torrent was removed');
+        // console.log('torrent was removed');
         return callback(null, true);
     });
   }
