@@ -20,7 +20,17 @@ module.exports = {
         for (var i=0; i<len; i++)
         {
           var torrent = torrents[i];
-          message += (i+1)+'. '+ torrent.name + ' (' + prettyMs(torrent.eta * 1000) + ' remaining) \n';
+          // console.log(torrent);
+          var stats;
+          if (torrent.eta != -1)
+          {
+            var eta = prettyMs(torrent.eta * 1000) + ' remaining';
+            var perc = (Math.round( (torrent.percentDone * 100) * 10 ) / 10 ) + '% downloaded';
+            stats = perc + ' with ' + eta;
+          } else {
+            var stats = 'Completed Downloading';
+          }
+          message += (i+1)+'. '+ torrent.name + ' (' +  stats + ') \n';
         }
         var response = {
           'response': {
