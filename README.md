@@ -14,10 +14,12 @@ Clone it with Git, and update with `git pull`.
 See [Node.js's website](http://nodejs.org/).
 
 After installing [Node.js](http://nodejs.org/),
-install [Bower](http://bower.io/).
+install [Bower](http://bower.io/) and
+[CoffeeScript](http://coffeescript.org/).
 
 ```bash
 npm install -g bower
+npm install -g coffeescript
 ```
 
 Now that you have [Node.js](http://nodejs.org/)
@@ -68,7 +70,13 @@ After you're completely done the setup above
 you can start the [TorrentAutomator](https://github.com/Glavin001/TorrentAutomator) server.
 
 ```bash
-node server/
+coffee server/
+```
+
+Or
+
+```bash
+./server/index.coffee
 ```
 
 The you can either:
