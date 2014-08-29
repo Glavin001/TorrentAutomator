@@ -1,8 +1,9 @@
+Command = require "./base"
 transmissionService = require("../../services/transmissionService")
 
 # Setup
 transmissionService.setup()
-module.exports =
+module.exports = class DownloadTorrentCommand extends Command
   regex: new RegExp("^[dD]ownload ([0-9]*).*$")
   check: (input, context, callback) ->
 
@@ -43,7 +44,7 @@ module.exports =
       return callback(null, response)
 
     # Modify to fit Transmission Service API
-    torrent.url = torrent.torrentLink
+    torrent.url = torrent.torrentUrl
     transmissionService.create torrent, {}, (error, result) ->
 
       # console.log(error, result);

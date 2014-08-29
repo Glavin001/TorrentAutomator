@@ -1,9 +1,10 @@
+Command = require "./base"
 transmissionService = require("../../services/transmissionService")
 prettyMs = require("pretty-ms")
 
 # Setup
 transmissionService.setup()
-module.exports =
+module.exports = class ShowDownloadsCommand extends Command
   regex: new RegExp("^(?=([sS]how)|([lL]ist)( (me|my))?( currently)? download(ing|s)).*$")
   run: (input, context, callback) ->
     self = this

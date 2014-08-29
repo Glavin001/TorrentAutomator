@@ -1,84 +1,48 @@
-async = undefined
-async = require("async")
-module.exports =
-  allCommands: [
-    require("./searchForTorrents")
-    require("./downloadTorrent")
-    require("./showDownloads")
-  ]
-  processInput: (input, context, callback) ->
-    @getCommands input, context, (commands) ->
-      command = undefined
-      command = commands[0]
-      unless not command
-        command.run input, context, callback
-      else
-        callback new Error("Could not find an applicable command."), null
+Command = require "./base"
+KickassProvider = require "../../providers/kickass"
 
+# Setup
+module.exports = class SearchForTorrentsCommand extends Command
+  kickass: null
+  maxResults: 5
+  regex: new RegExp("^[sS]earch for (.*)")
+  constructor: () ->
+    @kickass = new KickassProvider()
+    console.log @kickass
+  run: (input, context, callback) =>
 
-  getCommands: (input, context, callback) ->
-    commands = undefined
-    message = undefined
-    message = input.message
-    commands = @allCommands
-    async.filter commands, ((command, callback) ->
-      checkFun = undefined
-      regex = undefined
-      checkFun = command.check
-      regex = command.regex
-      return callback(false)  if regex and not regex.test(message)
-      if checkFun
-        kickassService = require("../../services/kickassService")
+    # console.log(input);
+    query = input.message
+    query = query.match(@regex)[1]
 
-        # Setup
-        kickassService.setup()
-        module.exports =
-          maxResults: 5
-          regex: new RegExp("^[sS]earch for (.*)")
-          run: (input, context, callback) ->
-            self = this
+    # console.log(query);
+    @kickass.search query, {}, (err, results) =>
+      # console.log(results);
 
-            # console.log(input);
-            query = input.message
-            query = query.match(self.regex)[1]
+      # List the available Torrents
+      len = Math.min(@maxResults, results.length)
 
-            # console.log(query);
-            kickassService.find
-              query:
-                query: query
-            , (err, results) ->
+      # Init message
+      message = "Here are the top #{len} Torrents:\n"
 
-              # console.log(results);
-              message = "Found " + results.length + " Torrent(s). Here are the top 5:\n"
+      # Build Torrent list in message
+      i = 0
+      while i < len
+        torrent = results[i]
+        downloadSizeInMB = torrent.size / 1000 / 1000
+        stats = ((if torrent.verified then "Verified and " else "")) +
+          "#{Math.round(downloadSizeInMB * 100) / 100} MB with " +
+          "#{torrent.seeders} seeders and " +
+          "#{torrent.leechers} leechers"
+        message += (i + 1) + ". " + torrent.title + " (" + stats + ") \n"
+        i++
 
-              # List the available Torrents
-              len = Math.min(self.maxResults, results.length)
-              i = 0
+      # Create response
+      response = response:
+        plain: message
 
-              while i < len
-                torrent = results[i]
-                downloadSizeInMB = torrent.size / 1000 / 1000
-                stats = ((if torrent.verified then "Verified and " else "")) + Math.round(downloadSizeInMB * 100) / 100 + " MB with " + torrent.seeds + " seed and " + torrent.leechs + " leech"
-                message += (i + 1) + ". " + torrent.title + " (" + stats + ") \n"
-                i++
+      # Save Torrents to context
+      context.foundTorrents = results
 
-              # Create response
-              response = response:
-                plain: message
-
-
-              # Save Torrents to context
-              context.foundTorrents = results
-
-              # return
-              callback err, response
-
-            return
-
-        checkFun input, context, callback
-      else
-        callback true
-    ), (results) ->
-      callback results
-
-    return
+      # return
+      return callback err, response
