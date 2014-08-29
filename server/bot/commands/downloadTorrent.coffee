@@ -5,11 +5,9 @@ transmissionService = require("../../services/transmissionService")
 transmissionService.setup()
 module.exports = class DownloadTorrentCommand extends Command
   regex: new RegExp("^[dD]ownload ([0-9]*).*$")
-  check: (input, context, callback) ->
-
+  filter: (input, context, callback) =>
     # console.log(context, context.foundTorrents);
-    callback !!context.foundTorrents
-
+    callback @regex.test(input) && !!context.foundTorrents
   run: (input, context, callback) ->
     self = this
 

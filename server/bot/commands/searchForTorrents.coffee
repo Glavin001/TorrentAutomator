@@ -5,26 +5,20 @@ KickassProvider = require "../../providers/kickass"
 module.exports = class SearchForTorrentsCommand extends Command
   kickass: null
   maxResults: 5
-  regex: new RegExp("^[sS]earch for (.*)")
+  filter: new RegExp("^[sS]earch for (.*)")
   constructor: () ->
     @kickass = new KickassProvider()
-    console.log @kickass
   run: (input, context, callback) =>
-
     # console.log(input);
     query = input.message
-    query = query.match(@regex)[1]
-
+    query = query.match(@filter)[1]
     # console.log(query);
     @kickass.search query, {}, (err, results) =>
       # console.log(results);
-
       # List the available Torrents
       len = Math.min(@maxResults, results.length)
-
       # Init message
       message = "Here are the top #{len} Torrents:\n"
-
       # Build Torrent list in message
       i = 0
       while i < len
@@ -36,13 +30,10 @@ module.exports = class SearchForTorrentsCommand extends Command
           "#{torrent.leechers} leechers"
         message += (i + 1) + ". " + torrent.title + " (" + stats + ") \n"
         i++
-
       # Create response
       response = response:
         plain: message
-
       # Save Torrents to context
       context.foundTorrents = results
-
       # return
       return callback err, response
