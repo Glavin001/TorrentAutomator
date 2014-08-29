@@ -1,13 +1,16 @@
 Command = require "./base"
-transmissionService = require("../../services/transmissionService")
+TorrentClient = require("../../clients/")
 
 # Setup
-transmissionService.setup()
 module.exports = class DownloadTorrentCommand extends Command
+  constructor: ->
+    super
+    @client = new TorrentClient()
+    return @
   regex: new RegExp("^[dD]ownload ([0-9]*).*$")
   filter: (input, context, callback) =>
-    # console.log(context, context.foundTorrents);
-    callback @regex.test(input) && !!context.foundTorrents
+    # console.log(input, @regex, context, context.foundTorrents);
+    callback @regex.test(input.message) && !!context.foundTorrents
   run: (input, context, callback) ->
     self = this
 
@@ -43,8 +46,7 @@ module.exports = class DownloadTorrentCommand extends Command
 
     # Modify to fit Transmission Service API
     torrent.url = torrent.torrentUrl
-    transmissionService.create torrent, {}, (error, result) ->
-
+    @client.addTorrent torrent, (error, result) ->
       # console.log(error, result);
       if error
         callback error, null
@@ -52,5 +54,4 @@ module.exports = class DownloadTorrentCommand extends Command
         message = "Successfully started downloading " + torrent.title
         response = response:
           plain: message
-
         callback null, response

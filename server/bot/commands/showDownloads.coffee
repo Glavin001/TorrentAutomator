@@ -1,14 +1,17 @@
 Command = require "./base"
-transmissionService = require("../../services/transmissionService")
+TorrentClient = require("../../clients/")
 prettyMs = require("pretty-ms")
 
 # Setup
-transmissionService.setup()
 module.exports = class ShowDownloadsCommand extends Command
+  constructor: ->
+    super
+    @client = new TorrentClient()
+    return @
   filter: new RegExp("^(?=([sS]how)|([lL]ist)( (me|my))?( currently)? download(ing|s)).*$")
   run: (input, context, callback) ->
     self = this
-    transmissionService.find {}, (error, result) ->
+    @client.list (error, result) ->
       if error
         callback error, null
       else

@@ -12,15 +12,9 @@ module.exports = class Providers extends BaseProvider
       tasks = []
       # Iterate through allProviders
       for p in @allProviders
-        # Force scope with closure
-        #do (p, query, options) ->
-        #  (p, q, op) ->
-        #    console.log p, q, op
-            # Add task
+        # Add task
         tasks.push (cb) ->
-              # Run search with current provider
-        #      console.log q, op
-        #      p.search q, op, cb
+          # Run search with current provider
           p.search query, options, cb
       # Run all tasks in parallel
       async.parallel tasks, (err, results) ->
