@@ -1,0 +1,16 @@
+{
+    "server": {
+      "port": 8000
+    },
+    "transmission": {
+        "host": "localhost",
+        "port": 9091,
+        "username": "USERNAME",
+        "password": "PASSWORD"
+    },
+    "twilio": {
+      "phone": "15555555555",
+      "accountSid": "TWILIO_ACCOUNT_SID",
+      "authToken": "TWILIO_AUTH_TOKEN"
+    }
+}

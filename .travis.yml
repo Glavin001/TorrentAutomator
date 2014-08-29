@@ -4,3 +4,5 @@ node_js:
 before_install:
   - npm install -g coffee-script
   - npm install -g mocha
+  - mv ./config_default.json ./config.json
+  
