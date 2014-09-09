@@ -25,6 +25,7 @@ module.exports = class KickassProvider extends Provider
             size: datum.size,
             dateCreated: datum.pubDate,
             hash: datum.hash,
+            category: datum.category,
             meta: datum
         torrents.push t
       return callback null, torrents

@@ -15,8 +15,20 @@ module.exports = class TranmissionClient extends TorrentClient
 
   addTorrent: (torrent, callback) ->
     options = {}
+    # Check if custom download-dir
+    downloadDir = @getDownloadDirForTorrent(torrent)
+    if downloadDir?
+      options['download-dir'] = downloadDir
+    # Check for missing Torrent URL
     unless torrent.torrentUrl
       callback new Error("Missing Torrent URL field."), null
     else
       @transmission.addUrl torrent.torrentUrl, options, (err, result) ->
         callback err, result
+
+  getDownloadDirForTorrent: (torrent) ->
+    downloadDirs = config.downloadDirs
+    if downloadDirs
+      return downloadDirs[torrent.category]
+    else
+      return null

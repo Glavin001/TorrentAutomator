@@ -10,5 +10,6 @@ module.exports = class Torrent
     @verified,
     @dateCreated,
     @hash,
+    @category,
     @meta
     }) ->
