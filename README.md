@@ -52,6 +52,13 @@ Here is a sample `config.json`:
       "phone": "15555555555",
       "accountSid": "TWILIO_ACCOUNT_SID",
       "authToken": "TWILIO_AUTH_TOKEN"
+    },
+    "downloadDirs": {
+      "Movies": "/Media/Movies",
+      "TV Shows": {
+        "template": "/Media/TV Shows/{{show_name}}/Season {{season}}",
+        "default": null
+      }
     }
 }
 ```

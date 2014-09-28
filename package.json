@@ -33,6 +33,8 @@
     "body-parser": "^1.6.4",
     "twilio": "^1.6.0",
     "pretty-ms": "^1.0.0",
-    "async": "^0.9.0"
+    "async": "^0.9.0",
+    "episode": "^0.2.0",
+    "mustache": "^0.8.2"
   }
 }
