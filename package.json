@@ -35,6 +35,8 @@
     "pretty-ms": "^1.0.0",
     "async": "^0.9.0",
     "episode": "^0.2.0",
-    "mustache": "^0.8.2"
+    "mustache": "^0.8.2",
+    "eztv-query": "^0.2.0",
+    "eztv": "0.0.4"
   }
 }

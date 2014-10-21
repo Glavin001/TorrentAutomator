@@ -34,7 +34,7 @@ $(document).ready(function() {
         console.log(query);
 
         // Send request to retrieve Torrents given query
-        $.get("/api/kickass", {
+        $.get("/api/torrents", {
             'query': query
         }).done(function(data) {
             console.log(data);

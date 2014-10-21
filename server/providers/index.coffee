@@ -17,6 +17,7 @@ module.exports = class Providers extends BaseProvider
           # Run search with current provider
           p.search query, options, cb
       # Run all tasks in parallel
-      async.parallel tasks, (err, results) ->
-        # console.log "done", err, results
+      async.parallel tasks, (err, allResults) ->
+        # console.log "done", err, allResults
+        results = [].concat.apply([], allResults)
         return callback err, results

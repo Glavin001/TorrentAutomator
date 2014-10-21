@@ -1,5 +1,5 @@
 Command = require "./base"
-KickassProvider = require "../../providers/kickass"
+TorrentProvider = require "../../providers/"
 
 # Setup
 module.exports = class SearchForTorrentsCommand extends Command
@@ -7,13 +7,13 @@ module.exports = class SearchForTorrentsCommand extends Command
   maxResults: 5
   filter: new RegExp("^[sS]earch for (.*)")
   constructor: () ->
-    @kickass = new KickassProvider()
+    @torrentProvider = new TorrentProvider()
   run: (input, context, callback) =>
     # console.log(input);
     query = input.message
     query = query.match(@filter)[1]
     # console.log(query);
-    @kickass.search query, {}, (err, results) =>
+    @torrentProvider.search query, {}, (err, results) =>
       # console.log(results);
       # List the available Torrents
       len = Math.min(@maxResults, results.length)

@@ -46,11 +46,17 @@
       {{#if torrents}}
 
           {{#each torrents}}
-            <div class="panel panel-primary animated fadeInUp">
+            <div class="panel panel-warning animated fadeInUp">
               <div class="panel-heading">
                 <h3 class="panel-title">
                     <button class="btn btn-success download-torrent-btn" data-torrent="{{jsonStringify this}}">Download Torrent</button>
-                    {{title}}
+                    <div class="pull-right">
+                      {{#if verified}}
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                      {{/if}}
+                      <a href="{{link}}" target="_blank">{{title}}</a>
+                      <span class="label label-info">{{category}}</span>
+                    </div>
                 </h3>
               </div>
               <div class="panel-body">
