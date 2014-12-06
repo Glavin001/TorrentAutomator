@@ -27,16 +27,15 @@
   },
   "homepage": "https://github.com/Glavin001/TorrentAutomator",
   "dependencies": {
-    "node-kickass-json": "^0.1.1",
-    "transmission": "^0.4.0",
-    "feathers": "^1.0.0-pre.5",
-    "body-parser": "^1.6.4",
-    "twilio": "^1.6.0",
-    "pretty-ms": "^1.0.0",
     "async": "^0.9.0",
+    "body-parser": "^1.6.4",
     "episode": "^0.2.0",
+    "eztv-query": "git+https://github.com/Glavin001/eztv-query.git",
+    "feathers": "^1.0.0-pre.5",
     "mustache": "^0.8.2",
-    "eztv-query": "^0.2.0",
-    "eztv": "0.0.4"
+    "node-kickass-json": "^0.1.1",
+    "pretty-ms": "^1.0.0",
+    "transmission": "^0.4.0",
+    "twilio": "^1.6.0"
   }
 }

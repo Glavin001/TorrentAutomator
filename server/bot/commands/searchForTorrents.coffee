@@ -14,7 +14,7 @@ module.exports = class SearchForTorrentsCommand extends Command
     query = query.match(@filter)[1]
     # console.log(query);
     @torrentProvider.search query, {}, (err, results) =>
-      # console.log(results);
+      # console.log('searchForTorrents', err, results);
       # List the available Torrents
       len = Math.min(@maxResults, results.length)
       # Init message
@@ -24,10 +24,15 @@ module.exports = class SearchForTorrentsCommand extends Command
       while i < len
         torrent = results[i]
         downloadSizeInMB = torrent.size / 1000 / 1000
-        stats = ((if torrent.verified then "Verified and " else "")) +
-          "#{Math.round(downloadSizeInMB * 100) / 100} MB with " +
-          "#{torrent.seeders} seeders and " +
-          "#{torrent.leechers} leechers"
+        stats = ((if torrent.verified then "Verified" else "")) +
+          (if (torrent.verified && \
+            (not isNaN(downloadSizeInMB) \
+            || (torrent.seeders && torrent.leechers) ) ) then " and " else "") +
+          (if not isNaN(downloadSizeInMB) then "#{Math.round(downloadSizeInMB * 100) / 100} MB with " else "") +
+          (if (torrent.seeders and torrent.leechers) then \
+          ("#{torrent.seeders} seeders and " + \
+          "#{torrent.leechers} leechers") \
+          else "")
         message += (i + 1) + ". " + torrent.title + " (" + stats + ") \n"
         i++
       # Create response
@@ -36,4 +41,4 @@ module.exports = class SearchForTorrentsCommand extends Command
       # Save Torrents to context
       context.foundTorrents = results
       # return
-      return callback err, response
+      return callback null, response

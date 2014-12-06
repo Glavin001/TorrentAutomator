@@ -12,6 +12,7 @@ module.exports = class KickassProvider extends Provider
       field: "seeders"
       sorder: "desc"
     ).run (error, data) ->
+      # console.log('kickass data', data)
       return callback error, [] if error
       torrents = []
       for datum in data

@@ -10,6 +10,8 @@ module.exports = create: (data, params, callback) ->
     message: message
     meta: data
   , (error, result) ->
-    callback error, result
-
+    if error
+        return callback null, "Please try again later. Error: #{error.message}"
+    else
+        return callback null, result
   return
