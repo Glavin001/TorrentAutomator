@@ -96,7 +96,10 @@ module.exports = class DownloadSeasonCommand extends Command
             message = "Downloaded #{downloads.successful.length} episodes " + \
             "(#{downloads.successful.join(', ')})" + \
             " of Season #{seasonNum} of #{showName}." + \
-            (if downloads.errored.length > 0 then " Errors occurred on episodes #{downloads.errored.join(', ')}.")
-            return callback err, message
+            (if (downloads.errored.length > 0) then " Errors occurred on episodes #{downloads.errored.join(', ')}." else "")
+            
+            response = response:
+                            plain: message
+            return callback err, response
 
         #return callback(null, 'Feature coming soon.')

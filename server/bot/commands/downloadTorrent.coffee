@@ -7,7 +7,7 @@ module.exports = class DownloadTorrentCommand extends Command
     super
     @client = new TorrentClient()
     return @
-  regex: new RegExp("^[dD]ownload ([0-9]*).*$")
+  regex: new RegExp("^[dD]ownload ([0-9]+).*$")
   filter: (input, context, callback) =>
     # console.log(input, @regex, context, context.foundTorrents);
     callback @regex.test(input.message) && !!context.foundTorrents
