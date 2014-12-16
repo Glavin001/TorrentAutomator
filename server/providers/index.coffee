@@ -5,7 +5,7 @@ EZTV = require "./eztv"
 
 module.exports = class Providers extends BaseProvider
     allProviders: [
-      new EZTV()
+      #new EZTV()
       new Kickass()
     ]
     search: (query, options, callback) ->
