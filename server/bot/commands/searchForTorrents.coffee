@@ -5,6 +5,7 @@ TorrentProvider = require "../../providers/"
 module.exports = class SearchForTorrentsCommand extends Command
   kickass: null
   maxResults: 5
+  help: "Search for <search keywords>"
   filter: new RegExp("^[sS]earch for (.*)")
   constructor: () ->
     @torrentProvider = new TorrentProvider()

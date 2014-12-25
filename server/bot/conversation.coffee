@@ -1,5 +1,9 @@
 async = require("async")
 Commands = require "./commands/"
+Help = require "./commands/help"
+
+# Add the Help command
+commands = Commands.concat([new Help()])
 
 module.exports = class Conversation
   constructor: (@from) ->
@@ -18,11 +22,11 @@ module.exports = class Conversation
         command.run input, context, callback
       else
         # Command not found
-        callback new Error("Could not find an applicable command."), null
+        callback new Error("Could not find an applicable command. Ask for \"Help\" to see your options."), null
 
   getCommands: (input, context, callback) ->
     message = input.message
-    async.filter Commands, ((command, callback) ->
+    async.filter commands, ((command, callback) ->
       # Check if command is applicable
       filter = command.filter
       # Check if function

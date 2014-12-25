@@ -8,6 +8,7 @@ module.exports = class ShowDownloadsCommand extends Command
     super
     @client = new TorrentClient()
     return @
+  help: "Show downloads"
   filter: new RegExp("^(?=([sS]how)|([lL]ist)( (me|my))?( currently)? download(ing|s)).*$")
   run: (input, context, callback) ->
     self = this

@@ -10,6 +10,7 @@ module.exports = class DownloadSeasonCommand extends Command
     @client = new TorrentClient()
     @torrentProvider = new EZTVProvider()
     return @
+  help: "Download season <season #> of <tv show>"
   filter: new RegExp("^[dD]ownload [sS]eason ([0-9]+) of (.*)$")
   run: (input, context, callback) ->
     self = this
