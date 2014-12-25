@@ -1,6 +1,6 @@
 twilio = require("twilio")
 bot = require("../bot")
-config = require("../../config.json")
+config = require("../config")
 client = twilio(config.twilio.accountSid, config.twilio.authToken)
 
 module.exports = receive: (req, res) ->

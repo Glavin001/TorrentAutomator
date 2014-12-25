@@ -1,5 +1,5 @@
 Transmission = require("transmission")
-config = require("../../config.json")
+config = require("../config")
 TorrentClient = require "./base"
 episode = require "episode"
 Mustache = require "mustache"

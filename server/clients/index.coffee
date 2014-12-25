@@ -1,4 +1,4 @@
-config = require("../../config.json")
+config = require("../config")
 TorrentClient = require "./base"
 # Clients
 TransmissionClient = require "./transmission"

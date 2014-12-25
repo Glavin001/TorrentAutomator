@@ -4,7 +4,7 @@ feathers = require("feathers")
 bodyParser = require("body-parser")
 path = require("path")
 twilio = require("twilio")
-config = require("../config.json")
+config = require("./config")
 
 # Public Directory
 publicPath = path.resolve(__dirname, "../app")

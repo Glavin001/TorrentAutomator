@@ -1,5 +1,5 @@
 Transmission = require("transmission")
-config = require("../../config.json")
+config = require("../config")
 module.exports =
   transmission: null
   setup: (app) ->
