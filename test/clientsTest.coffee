@@ -10,7 +10,7 @@ describe "Clients", () ->
         title: "Doctor Who 2005 S08E06 HDTV x264-TLA [eztv]"
       }
       d = client.getDownloadDirForTorrent(torrent)
-      console.log(d)
+      # console.log(d)
 
     it "should be movie", () ->
       torrent = {
@@ -18,7 +18,7 @@ describe "Clients", () ->
         title: "The Maze Runner 2014 Cam x264 AAC REsuRRecTioN"
       }
       d = client.getDownloadDirForTorrent(torrent)
-      console.log(d)
+      # console.log(d)
 
     it "should not be tv show", () ->
       torrent = {
@@ -26,4 +26,4 @@ describe "Clients", () ->
         title: "Doctor Who Season (2005) 1-7 DVDRip"
       }
       d = client.getDownloadDirForTorrent(torrent)
-      console.log(d)
+      # console.log(d)
