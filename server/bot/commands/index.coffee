@@ -2,6 +2,7 @@ SearchForTorrents = require "./searchForTorrents"
 DownloadTorrent = require "./downloadTorrent"
 ShowDownloads = require "./showDownloads"
 DownloadSeason = require "./downloadSeason"
+ShowMore = require "./showMore"
 
 module.exports = [
     # Do NOT include the Help command here.
@@ -10,4 +11,5 @@ module.exports = [
     new DownloadTorrent()
     new ShowDownloads()
     new DownloadSeason()
+    new ShowMore()
   ]

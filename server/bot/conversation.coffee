@@ -22,7 +22,7 @@ module.exports = class Conversation
         command.run input, context, callback
       else
         # Command not found
-        callback new Error("Could not find an applicable command. \"Show commands\" to see your options."), null
+        callback new Error("Could not find an applicable command for \"#{input.message}\". \"Show commands\" to see your options."), null
 
   getCommands: (input, context, callback) ->
     message = input.message

@@ -5,6 +5,7 @@ DownloadTorrentCommand = require "../server/bot/commands/downloadTorrent"
 ShowDownloadsCommand = require "../server/bot/commands/showDownloads"
 HelpCommand = require "../server/bot/commands/help"
 DownloadSeasonCommand = require "../server/bot/commands/downloadSeason"
+ShowMoreCommand = require "../server/bot/commands/showMore"
 
 describe "Bot", () ->
   describe "Commands", ->
@@ -46,3 +47,10 @@ describe "Bot", () ->
         assert.equal 1, commands.length
         command = commands[0]
         assert.equal true, command instanceof DownloadSeasonCommand
+    it "should be ShowMoreCommand", () ->
+      convo.getCommands { message: "Show more"}, {}, (commands) ->
+        assert.equal 0, commands.length
+      convo.getCommands { message: "Show more"}, {foundTorrents:[]}, (commands) ->
+        assert.equal 1, commands.length
+        command = commands[0]
+        assert.equal true, command instanceof ShowMoreCommand
