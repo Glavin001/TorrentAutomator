@@ -16,8 +16,15 @@ module.exports = class YIFYProvider extends Provider
         }, (err, response, body) =>
             return callback(err, []) if err
 
-            # Parse body
-            data = JSON.parse(body)
+            try
+                # Parse body
+                data = JSON.parse(body)
+            catch e
+                # API does not always return JSON
+                # In the case of a server error,
+                # an entire HTML webpage is returned!
+                return callback(null, [])
+                # Fail silently
             
             # Check for failures
             if data.status is "fail"
