@@ -1,7 +1,7 @@
 [TorrentAutomator](https://github.com/Glavin001/TorrentAutomator) [![Build Status](https://travis-ci.org/Glavin001/TorrentAutomator.svg)](https://travis-ci.org/Glavin001/TorrentAutomator)
 ================
 
-> Automate the task of [searching for Torrents](http://kickass.to/) and sending them to [Transmission](https://www.transmissionbt.com/) to download.
+> Automate the task of searching for Torrents ( [Kickass](http://kickass.to/), [YIFY](https://yts.re/), [EZTV](http://eztv.it/) ) and sending them to [Transmission](https://www.transmissionbt.com/) or [uTorrent](http://www.utorrent.com/) to download.
 
 ## Installation
 
