@@ -16,6 +16,7 @@ module.exports = class SearchForTorrentsCommand extends Command
         # console.log(query);
         @torrentProvider.search query, {}, (err, results) =>
           # console.log('searchForTorrents', err, results);
+          return callback(err, null) if err
           # List the available Torrents
           len = Math.min(@maxResults, results.length)
           # Check if any torrents found

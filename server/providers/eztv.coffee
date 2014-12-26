@@ -8,8 +8,13 @@ module.exports = class EZTVProvider extends Provider
         return eztvQuery(query, {
             returnAll: true
         }, (error, episodes) ->
-            # console.log(error, episodes)
-            return callback error, [] if error
+            # console.log("eztv", error, episodes)
+            
+            # Mute errors: 
+            # - EZTV goes down often 
+            # - EZTV-Query errors undesirably
+            return callback null, [] if error 
+            
             torrents = []
             for episode in episodes
                 t = new Torrent \

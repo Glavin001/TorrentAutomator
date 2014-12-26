@@ -2,10 +2,12 @@ async = require "async"
 BaseProvider = require "./base"
 Kickass = require "./kickass"
 EZTV = require "./eztv"
+YIFY = require "./yify"
 
 module.exports = class Providers extends BaseProvider
     allProviders: [
       new EZTV()
+      new YIFY()
       new Kickass()
     ]
     search: (query, options, callback) ->
@@ -25,5 +27,7 @@ module.exports = class Providers extends BaseProvider
       # console.log(tasks)
       async.parallel tasks, (err, allResults) ->
         # console.log "done", err, allResults
+        return callback err, [] if err
         results = [].concat.apply([], allResults)
+        # console.log "results", results
         return callback err, results
