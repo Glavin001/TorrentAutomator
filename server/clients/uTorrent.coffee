@@ -16,8 +16,6 @@ module.exports = class uTorrentClient extends TorrentClient
   list: (callback) ->
     @utorrent.call("list", (err, data) ->
         return callback(err, null) if err
-
-        # console.log(data)
         results = {
             torrents: []
         }
@@ -28,7 +26,6 @@ module.exports = class uTorrentClient extends TorrentClient
                 eta: datum[10]
             }
             results.torrents.push(torrent)
-        # console.log(results)
         return callback err, results
     )
 
@@ -37,31 +34,29 @@ module.exports = class uTorrentClient extends TorrentClient
     # Check if custom download-dir
     downloadDir = @getDownloadDirForTorrent(torrent)
     if downloadDir?
-      options['download-dir'] = downloadDir
+      options['download_dir'] = downloadDir.basePath
+      options['path'] = downloadDir.subPath
     # Check for missing Torrent URL
     unless torrent.torrentUrl
       callback new Error("Missing Torrent URL field."), null
     else
-
-      @utorrent.call('add-url',
-        {
-            's': torrent.torrentUrl,
-            'download_dir': 0,
-            'path': '' # TODO: allow for customizing download directory
-        },
-        (err, result) =>
-            # console.log("add-file", err, result)
-            return callback err, result
+      options['s'] = torrent.torrentUrl
+      @utorrent.call('add-url', options, (err, result) =>
+        # console.log("add-file", err, result)
+        return callback err, result
       )
 
   getDownloadDirForTorrent: (torrent) ->
     downloadDirs = config.downloadDirs
+    def = { # Default
+        "basePath": 0,
+        "subPath": ""
+      }
     if downloadDirs
       downloadDir = downloadDirs[torrent.category]
-      if typeof downloadDir is "object"
+      # console.log(typeof downloadDir, torrent.category)
+      renderPathForTorrent = (torrent, template, defDir) ->
         title = torrent.title
-        template = downloadDir.template || null
-        defDir = downloadDir.default || null
         e = episode(title)
         # Check if it was properly parse
         if e.matches.length > 0
@@ -73,7 +68,33 @@ module.exports = class uTorrentClient extends TorrentClient
           return downloadDir
         else
           return defDir
+
+      if typeof downloadDir is "object"
+        basePath = downloadDir.basePath || 0
+        template = downloadDir.template || ""
+        defDir = downloadDir.default || ""
+        subPath = renderPathForTorrent(torrent, template, defDir)
+        return {
+            "basePath": basePath
+            "subPath": subPath
+        }    
+      else if typeof downloadDir is "number"
+        # Specifying Base-Path
+        return {
+            "basePath": downloadDir
+            "subPath": ""
+        }
+      else if typeof downloadDir is "string"
+        # Specifiying Sub-Path
+        basePath = 0 # Default
+        subPath = renderPathForTorrent(torrent, downloadDir, "")
+        return {
+            "basePath": basePath,
+            "subPath": subPath
+        }
       else
-        return downloadDir
+        # Unsupported
+        console.warn("Unsupported 'downloadDirs' configuration for category #{torrent.category}. Please check that.")
+        return def
     else
-      return null
+      return def
