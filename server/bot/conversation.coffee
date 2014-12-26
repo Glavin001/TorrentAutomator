@@ -13,6 +13,7 @@ module.exports = class Conversation
     @processInput input, @context, callback
     return
   processInput: (input, context, callback) ->
+    # Trim whitespace from input message
     @getCommands input, context, (commands) ->
       # Get first available command
       command = commands[0]
@@ -25,7 +26,12 @@ module.exports = class Conversation
         callback new Error("Could not find an applicable command for \"#{input.message}\". \"Show commands\" to see your options."), null
 
   getCommands: (input, context, callback) ->
-    message = input.message
+    # console.log("Before msg: #{input.message}")
+    input.rawMessage = input.message # Backup original, raw message
+    input.message = @trim11(input.message) # Trim whitespace in message
+    # console.log("After msg: #{input.message}")
+    message = input.message # Cache to speed up lookups
+
     async.filter commands, ((command, callback) ->
       # Check if command is applicable
       filter = command.filter
@@ -48,3 +54,15 @@ module.exports = class Conversation
       # console.log(results);
       callback results
     return
+
+  # Source: http://stackoverflow.com/a/3000784/2578205
+  trim11: (str) ->
+      str = str.replace(/^\s+/, "")
+      i = str.length - 1
+
+      while i >= 0
+        if /\S/.test(str.charAt(i))
+          str = str.substring(0, i + 1)
+          break
+        i--
+      str

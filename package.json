@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "coffee server/",
-    "test": "mocha --compilers coffee:coffee-script/register test/"
+    "test": "mocha --reporter spec --compilers coffee:coffee-script/register test/"
   },
   "repository": {
     "type": "git",
