@@ -40,6 +40,11 @@ describe "Commands", ->
             assert.equal 1, commands.length
             command = commands[0]
             assert.equal true, command instanceof DownloadTorrentCommand
+        it "should allow multiple selections and return DownloadTorrentCommand.", () ->
+          convo.getCommands { message: "Download 1,2,  3, 4." }, { foundTorrents:[] }, (commands) ->
+            assert.equal 1, commands.length
+            command = commands[0]
+            assert.equal true, command instanceof DownloadTorrentCommand
         it "should trim space and return DownloadTorrentCommand", ->
           convo.getCommands { message: "   Download 1.   " }, { foundTorrents:[] }, (commands) ->
             assert.equal 1, commands.length

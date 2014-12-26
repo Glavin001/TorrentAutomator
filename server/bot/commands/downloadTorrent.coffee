@@ -1,3 +1,4 @@
+async = require "async"
 Command = require "./base"
 TorrentClient = require("../../clients/")
 
@@ -7,8 +8,8 @@ module.exports = class DownloadTorrentCommand extends Command
     super
     @client = new TorrentClient()
     return @
-  help: "Download <selection #>"
-  regex: new RegExp("^[dD]ownload ([0-9]+).*$")
+  help: "Download <selection #, #,...>"
+  regex: new RegExp("^[dD]ownload ((?:\\d+\\s*,\\s*)*(?:\\d+)).*$")
   filter: (input, context, callback) =>
     # console.log(input, @regex, context, context.foundTorrents);
     callback @regex.test(input.message) && !!context.foundTorrents
@@ -17,42 +18,72 @@ module.exports = class DownloadTorrentCommand extends Command
 
     # console.log(input, context);
     query = input.message
-    selection = parseInt(query.match(self.regex)[1])
+    selections = query.match(self.regex)[1]
 
-    # console.log(selection);
-    if isNaN(selection)
+    # Split on comma
+    sp = selections.split(",")
+    
+    selectedTorrents = []
+    for s in sp
+        selection = parseInt(s)
+        # console.log(selection, s, sp)
+        # console.log(selection);
+        if isNaN(selection)
+          # User error
+          return callback(null,
+            response:
+              plain: "Sorry, \"#{s}\" in \"#{query}\" is not a selection number."
+          )
+        # Add Torrent selection to be processed
+        selectedTorrents.push(selection)
 
-      # User error
-      return callback(null,
-        response:
-          plain: "Sorry, \"" + query + "\" is not a selection number."
-      )
+    # Create tasks list
+    tasks = []
+    downloads = {
+        successful: []
+        errored: []
+        notFound: []
+    }
+    # Process selected Torrents and add them to be downloaded
+    for selection in selectedTorrents
+        ((selection) => (
+            # Add task
+            tasks.push (cb) =>
 
-    # Change selection from 1-based index to 0-based
-    selection--
+                # Get Torrent
+                # Change selection from 1-based index to 0-based
+                torrent = context.foundTorrents[selection-1]
 
-    # Get Torrent
-    torrent = context.foundTorrents[selection]
+                # Check if exists
+                unless torrent
+                  downloads.notFound.push(selection)
+                  return callback(null, selection)
 
-    # Check if exists
-    unless torrent
+                # Download Torrent
+                @client.addTorrent torrent, (error, result) ->
+                    # console.log(error, result);
+                    if (error)
+                        downloads.errored.push(selection)
+                    else
+                        downloads.successful.push(selection)
+                    return cb(null, selection)  
 
-      # User error
-      message = "No Torrent found for selection " + selection + "+. "
-      message += "Please search for a Torrent."
-      response = response:
-        plain: message
+        ))(selection)
 
-      return callback(null, response)
+    # Run all tasks in parallel
+    # console.log(tasks)
+    async.series tasks, (err, allSelections) =>
+        # console.log "done", err, allSelections
+        return callback err, null if err
 
-    # Modify to fit Transmission Service API
-    torrent.url = torrent.torrentUrl
-    @client.addTorrent torrent, (error, result) ->
-      # console.log(error, result);
-      if error
-        callback error, null
-      else
-        message = "Successfully started downloading " + torrent.title
+        message = "Successfully started downloading #{downloads.successful.length} Torrent(s) " + \
+        "(#{downloads.successful.join(', ')})"
+
+        message += (if (downloads.errored.length > 0) then " Errors occurred on Torrent(s) #{downloads.errored.join(', ')}." else "")
+        
+        message += (if (downloads.notFound.length > 0) then " No Torrent found for selection(s) #{downloads.notFound.join(', ')}." else "")
+
         response = response:
-          plain: message
-        callback null, response
+                        plain: message
+        return callback err, response
+
