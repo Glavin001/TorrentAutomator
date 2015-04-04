@@ -3,11 +3,11 @@ Torrent = require "../torrent"
 request = require "request"
 
 module.exports = class YIFYProvider extends Provider
-  listUri: "https://yts.re/api/list.json"
+  listUri: "https://yts.to/api/list.json"
   sortBy: "seed"
   limit: 20
   search: (query, options, callback) ->
-    # See API docs: https://yts.re/api#listDocs 
+    # See API docs: https://yts.to/api#listDocs
     uri = "#{@listUri}?sort=#{@sortBy}&limit=#{@limit}&keywords=#{query}"
     # Send request
     request({
@@ -25,7 +25,7 @@ module.exports = class YIFYProvider extends Provider
                 # an entire HTML webpage is returned!
                 return callback(null, [])
                 # Fail silently
-            
+
             # Check for failures
             if data.status is "fail"
                 # Fail silently: likely because "No movies found"
