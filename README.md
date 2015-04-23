@@ -19,7 +19,7 @@ install [Bower](http://bower.io/) and
 
 ```bash
 npm install -g bower
-npm install -g coffeescript
+npm install -g coffee-script
 ```
 
 Now that you have [Node.js](http://nodejs.org/)
