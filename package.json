@@ -4,6 +4,7 @@
   "description": "Automate the task of searching for Torrents and sending them to Transmission-Daemon to download. ",
   "main": "index.js",
   "scripts": {
+    "prestart": "bash deps.sh",
     "start": "coffee server/",
     "test": "mocha --reporter spec --compilers coffee:coffee-script/register test/"
   },
