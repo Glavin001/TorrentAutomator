@@ -41,5 +41,8 @@
     "transmission": "^0.4.0",
     "twilio": "^1.6.0",
     "utorrent-api": "^0.1.4"
+  },
+  "engines": {
+    "node": "^4"
   }
 }
