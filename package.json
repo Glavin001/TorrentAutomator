@@ -38,7 +38,7 @@
     "pretty-ms": "^1.0.0",
     "request": "^2.51.0",
     "strip-json-comments": "^1.0.2",
-    "transmission": "^0.4.0",
+    "transmission": "^0.4.3",
     "twilio": "^1.6.0",
     "utorrent-api": "^0.1.4"
   },
