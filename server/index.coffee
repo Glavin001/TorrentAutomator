@@ -30,7 +30,9 @@ app.configure(feathers.rest())
 .use("/api/bot", botService)
 # Public static content
 .use(feathers.static(publicPath))
-.post("/api/sms", twilio.webhook(config.twilio.authToken), twilioService.receive)
+.post("/api/sms", twilio.webhook(config.twilio.authToken, {
+  validate: false
+}), twilioService.receive)
 # Start server listening
 .listen config.server.port, ->
   console.log "Listening on http://localhost:" + config.server.port
