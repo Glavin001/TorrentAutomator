@@ -27,7 +27,7 @@ module.exports = receive: (req, res) ->
 
     # console.log(error, result);
     if error
-      body = error.message
+      body = "An error occurred: #{error.message}"
     else
       body = result.response.plain
 
