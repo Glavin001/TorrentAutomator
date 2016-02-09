@@ -19,7 +19,7 @@ COPY package.json ./
 RUN npm install --verbose
 
 # Install Bower packages
-COPY bower.json ./
+COPY bower.json .bowerrc ./
 RUN bower install --verbose --allow-root
 
 # Configure Transmission
