@@ -4,7 +4,7 @@
     },
     "transmission": {
          "host": "127.0.0.1",
-         "port": 9091,
+         "port": 8080,
          "username": "transmission",
          "password": "password"
     },
