@@ -3,7 +3,7 @@ Torrent = require "../torrent"
 request = require "request"
 
 module.exports = class YIFYProvider extends Provider
-  listUri: "https://yts.to/api/list.json"
+  listUri: "https://yts.ag/api/list.json"
   sortBy: "seed"
   limit: 20
   search: (query, options, callback) ->
