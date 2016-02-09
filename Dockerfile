@@ -27,6 +27,8 @@ COPY transmission_settings.json ./
 COPY resin_config.json ./config.json
 RUN usermod -a -G root debian-transmission ; \
     cp transmission_settings.json /etc/transmission-daemon/settings.json
+RUN mkdir -p /data/transmission-daemon && \
+    ln -s /var/lib/transmission-daemon /data/transmission-daemon
 
 # Copy the application project
 COPY . ./
