@@ -1,0 +1,18 @@
+{
+    "server": {
+      "port": 80
+    },
+    "transmission": {
+         "host": "127.0.0.1",
+         "port": 9091,
+         "username": "transmission",
+         "password": "password"
+    },
+    "downloadDirs": {
+       "Movies": "/mnt/Public/Shared Videos/Movies",
+       "TV Shows": {
+         "template": "/mnt/Public/Shared Videos/Shows/{{show_name}}/Season {{season}}",
+         "default": null
+       }
+    }
+}
