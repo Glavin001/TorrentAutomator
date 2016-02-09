@@ -1,7 +1,12 @@
 twilio = require("twilio")
 bot = require("../bot")
 config = require("../config")
-client = twilio(config.twilio.accountSid, config.twilio.authToken)
+TWILIO_PHONE = config.twilio.phone
+TWILIO_ACCOUNT_SID = config.twilio.accountSid
+TWILIO_AUTH_TOKEN = config.twilio.authToken
+if not (TWILIO_PHONE and TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN)
+  throw new Error "Please configure Twilio"
+client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 module.exports = receive: (req, res) ->
 
@@ -27,9 +32,9 @@ module.exports = receive: (req, res) ->
       body = result.response.plain
 
     client.sendMessage({
-        to: from
-        from: config.twilio.phone
-        body: body
+      to: from
+      from: TWILIO_PHONE
+      body: body
     }, (err, responseData) ->
         # console.log(err, responseData)
     )
