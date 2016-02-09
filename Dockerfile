@@ -21,7 +21,7 @@ RUN apt-get update && \
     apt-get install transmission-daemon
 # Change appropriate permissions
 # And Copy transmission settings
-RUN usermod -a -G root debian-transmission || \
+RUN usermod -a -G root debian-transmission ; \
     cp transmission_settings.json /etc/transmission-daemon/settings.json
 COPY . ./
 # Run on device - Start application
