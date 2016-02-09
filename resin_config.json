@@ -10,6 +10,10 @@
     },
     "downloadDirs": {
        "Movies": "/mnt/Public/Shared Videos/Movies",
+       "TV": {
+         "template": "/mnt/Public/Shared Videos/Shows/{{show_name}}/Season {{season}}",
+         "default": null
+       },
        "TV Shows": {
          "template": "/mnt/Public/Shared Videos/Shows/{{show_name}}/Season {{season}}",
          "default": null
