@@ -2,7 +2,7 @@ FROM resin/raspberrypi-node
 ENV INITSYSTEM on
 WORKDIR /usr/src/app
 COPY package.json ./
-RUN /bin/bash setup.sh
 COPY . ./
+RUN /bin/bash ./setup.sh
 CMD npm start
 
