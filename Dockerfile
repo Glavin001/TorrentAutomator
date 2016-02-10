@@ -26,9 +26,6 @@ RUN bower install --verbose --allow-root
 COPY transmission_settings.json ./
 COPY resin_config.json ./config.json
 RUN usermod -a -G root debian-transmission
-#; \
-#    mv /var/lib/transmission-daemon /var/lib/transmission-daemon_old ; \
-#    ln -s /data/transmission-daemon/ /var/lib/transmission-daemon
 
 # Copy the application project
 COPY . ./
