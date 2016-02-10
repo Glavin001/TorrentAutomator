@@ -1,11 +1,13 @@
 assert = require "assert"
 Bot = require "../server/bot/"
 SearchForTorrentCommand = require "../server/bot/commands/searchForTorrents"
-DownloadTorrentCommand = require "../server/bot/commands/downloadTorrent"
+DownloadSelectedTorrentCommand = \
+  require "../server/bot/commands/downloadSelectedTorrent"
 ShowDownloadsCommand = require "../server/bot/commands/showDownloads"
 HelpCommand = require "../server/bot/commands/help"
 DownloadSeasonCommand = require "../server/bot/commands/downloadSeason"
 ShowMoreCommand = require "../server/bot/commands/showMore"
+DownloadTorrentURLCommand = require "../server/bot/commands/downloadTorrentURL"
 
 describe "Commands", ->
     convo = Bot.getConversation "tester"
@@ -34,22 +36,22 @@ describe "Commands", ->
             assert.equal 1, commands.length
             command = commands[0]
             assert.equal true, command instanceof SearchForTorrentCommand
-    describe "DownloadTorrentCommand", ->
-        it "should be DownloadTorrentCommand.", () ->
+    describe "DownloadSelectedTorrentCommand", ->
+        it "should be DownloadSelectedTorrentCommand.", () ->
           convo.getCommands { message: "Download 1." }, { foundTorrents:[] }, (commands) ->
             assert.equal 1, commands.length
             command = commands[0]
-            assert.equal true, command instanceof DownloadTorrentCommand
-        it "should allow multiple selections and return DownloadTorrentCommand.", () ->
+            assert.equal true, command instanceof DownloadSelectedTorrentCommand
+        it "should allow multiple selections and return DownloadSelectedTorrentCommand.", () ->
           convo.getCommands { message: "Download 1,2,  3, 4." }, { foundTorrents:[] }, (commands) ->
             assert.equal 1, commands.length
             command = commands[0]
-            assert.equal true, command instanceof DownloadTorrentCommand
-        it "should trim space and return DownloadTorrentCommand", ->
+            assert.equal true, command instanceof DownloadSelectedTorrentCommand
+        it "should trim space and return DownloadSelectedTorrentCommand", ->
           convo.getCommands { message: "   Download 1.   " }, { foundTorrents:[] }, (commands) ->
             assert.equal 1, commands.length
             command = commands[0]
-            assert.equal true, command instanceof DownloadTorrentCommand
+            assert.equal true, command instanceof DownloadSelectedTorrentCommand
     describe "ShowDownloadsCommand", ->
         it "should be ShowDownloadsCommand", () ->
           convo.getCommands { message: "Show downloads." }, {}, (commands) ->
@@ -74,3 +76,19 @@ describe "Commands", ->
             assert.equal 1, commands.length
             command = commands[0]
             assert.equal true, command instanceof ShowMoreCommand
+    describe "DownloadTorrentURL", ->
+        it "should be DownloadTorrentURLCommand.", () ->
+          convo.getCommands { message: "Download https://torcache.net/torrent/E45224537CD84471A3F7F235265284AF004F988D.torrent?title=[kat.cr]limitless.s01e14.hdtv.x264.lol.ettv" }, { foundTorrents:[] }, (commands) ->
+            assert.equal 1, commands.length
+            command = commands[0]
+            assert.equal true, command instanceof DownloadTorrentURLCommand
+        it "should trim space and return DownloadSelectedTorrentCommand", ->
+          convo.getCommands { message: "   Download https://torcache.net/torrent/E45224537CD84471A3F7F235265284AF004F988D.torrent?title=[kat.cr]limitless.s01e14.hdtv.x264.lol.ettv   " }, { foundTorrents:[] }, (commands) ->
+            assert.equal 1, commands.length
+            command = commands[0]
+            assert.equal true, command instanceof DownloadTorrentURLCommand
+        it "should allow multiple Torrent URLs and return DownloadTorrentURLCommand.", () ->
+          convo.getCommands { message: "Download https://torcache.net/torrent/E45224537CD84471A3F7F235265284AF004F988D.torrent?title=[kat.cr]limitless.s01e14.hdtv.x264.lol.ettv https://torcache.net/torrent/E45224537CD84471A3F7F235265284AF004F988D.torrent?title=[kat.cr]limitless.s01e14.hdtv.x264.lol.ettv " }, { foundTorrents:[] }, (commands) ->
+            assert.equal 1, commands.length
+            command = commands[0]
+            assert.equal true, command instanceof DownloadTorrentURLCommand

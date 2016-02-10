@@ -57,6 +57,7 @@ module.exports = class Conversation
 
   # Source: http://stackoverflow.com/a/3000784/2578205
   trim11: (str) ->
+      str = "#{str}" # ensure it is a string
       str = str.replace(/^\s+/, "")
       i = str.length - 1
 

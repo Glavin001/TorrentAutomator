@@ -3,7 +3,7 @@ Command = require "./base"
 TorrentClient = require("../../clients/")
 
 # Setup
-module.exports = class DownloadTorrentCommand extends Command
+module.exports = class DownloadSelectedTorrentCommand extends Command
   constructor: ->
     super
     @client = new TorrentClient()
@@ -22,7 +22,7 @@ module.exports = class DownloadTorrentCommand extends Command
 
     # Split on comma
     sp = selections.split(",")
-    
+
     selectedTorrents = []
     for s in sp
         selection = parseInt(s)
@@ -66,7 +66,7 @@ module.exports = class DownloadTorrentCommand extends Command
                         downloads.errored.push(selection)
                     else
                         downloads.successful.push(selection)
-                    return cb(null, selection)  
+                    return cb(null, selection)
 
         ))(selection)
 
@@ -80,7 +80,7 @@ module.exports = class DownloadTorrentCommand extends Command
         "(#{downloads.successful.join(', ')})"
 
         message += (if (downloads.errored.length > 0) then " Errors occurred on Torrent(s) #{downloads.errored.join(', ')}." else "")
-        
+
         message += (if (downloads.notFound.length > 0) then " No Torrent found for selection(s) #{downloads.notFound.join(', ')}." else "")
 
         response = response:
