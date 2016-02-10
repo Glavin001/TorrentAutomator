@@ -15,18 +15,18 @@ module.exports = class uTorrentClient extends TorrentClient
 
   list: (callback) ->
     @utorrent.call("list", (err, data) ->
-        return callback(err, null) if err
-        results = {
-            torrents: []
+      return callback(err, null) if err
+      results = {
+        torrents: []
+      }
+      for datum in data.torrents
+        torrent = {
+          name: datum[2]
+          percentDone: datum[4]/1000
+          eta: datum[10]
         }
-        for datum in data.torrents
-            torrent = {
-                name: datum[2]
-                percentDone: datum[4]/1000
-                eta: datum[10]
-            }
-            results.torrents.push(torrent)
-        return callback err, results
+        results.torrents.push(torrent)
+      return callback err, results
     )
 
   addTorrent: (torrent, callback) ->
@@ -49,8 +49,8 @@ module.exports = class uTorrentClient extends TorrentClient
   getDownloadDirForTorrent: (torrent) ->
     downloadDirs = config.downloadDirs
     def = { # Default
-        "basePath": 0,
-        "subPath": ""
+      "basePath": 0,
+      "subPath": ""
       }
     if downloadDirs
       downloadDir = downloadDirs[torrent.category]
@@ -75,22 +75,22 @@ module.exports = class uTorrentClient extends TorrentClient
         defDir = downloadDir.default || ""
         subPath = renderPathForTorrent(torrent, template, defDir)
         return {
-            "basePath": basePath
-            "subPath": subPath
-        }    
+          "basePath": basePath
+          "subPath": subPath
+        }
       else if typeof downloadDir is "number"
         # Specifying Base-Path
         return {
-            "basePath": downloadDir
-            "subPath": ""
+          "basePath": downloadDir
+          "subPath": ""
         }
       else if typeof downloadDir is "string"
         # Specifiying Sub-Path
         basePath = 0 # Default
         subPath = renderPathForTorrent(torrent, downloadDir, "")
         return {
-            "basePath": basePath,
-            "subPath": subPath
+          "basePath": basePath,
+          "subPath": subPath
         }
       else
         # Unsupported

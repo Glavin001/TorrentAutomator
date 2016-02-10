@@ -16,17 +16,17 @@ module.exports = class URLTorrentProvider extends Provider
         return cb(error, null) if error
 
         t = new Torrent \
-            title: torrent.name,
-            torrentUrl: url,
-            link: url,
-            verified: false,
-            seeders: 0,
-            leechers: 0,
-            size: torrent.length,
-            dateCreated: new Date(torrent.created),
-            hash: torrent.infoHash,
-            category: null,
-            meta: torrent
+          title: torrent.name,
+          torrentUrl: url,
+          link: url,
+          verified: false,
+          seeders: 0,
+          leechers: 0,
+          size: torrent.length,
+          dateCreated: new Date(torrent.created),
+          hash: torrent.infoHash,
+          category: null,
+          meta: torrent
 
         return cb null, t
       )

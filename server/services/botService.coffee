@@ -11,10 +11,10 @@ module.exports = create: (data, params, callback) ->
     meta: data
   , (error, result) ->
     if error
-        message = "Please try again later. Error: #{error.message}"
-        response = response:
-            plain: message
-        return callback null, response
+      message = "Please try again later. Error: #{error.message}"
+      response = response:
+        plain: message
+      return callback null, response
     else
-        return callback null, result
+      return callback null, result
   return

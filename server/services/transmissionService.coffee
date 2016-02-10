@@ -18,7 +18,7 @@ module.exports =
 
   get: (id, params, callback) ->
     @transmission.get id, (err, result) ->
-      return callback(err, result)  if err
+      return callback(err, result) if err
 
       # console.log('bt.get returned ' + result.torrents.length + ' torrents');
       callback result.torrents
@@ -41,7 +41,7 @@ module.exports =
   # patch: function(id, data, params, callback) {},
   remove: (id, params, callback) ->
     @transmission.remove id, (err) ->
-      return callback(err, null)  if err
+      return callback(err, null) if err
 
       # console.log('torrent was removed');
       callback null, true

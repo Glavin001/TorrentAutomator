@@ -9,9 +9,9 @@ module.exports = class HelpCommand extends Command
     self = this
     message = "You have #{Commands.length} commands:\n"
     for command in Commands
-        msg = command.help
-        msg ?= command.constructor.name
-        message += "- #{msg}\n"
+      msg = command.help
+      msg ?= command.constructor.name
+      message += "- #{msg}\n"
     response = response:
       plain: message
     callback null, response

@@ -26,9 +26,9 @@ module.exports = class DownloadURLTorrentCommand extends Command
       # Create tasks list
       tasks = []
       downloads = {
-          successful: []
-          errored: []
-          notFound: []
+        successful: []
+        errored: []
+        notFound: []
       }
       # Process selected Torrents and add them to be downloaded
       for torrent in torrents

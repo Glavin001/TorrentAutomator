@@ -17,16 +17,16 @@ module.exports = class KickassProvider extends Provider
       torrents = []
       for datum in data
         t = new Torrent \
-            title: datum.title,
-            torrentUrl: datum.torrentLink,
-            link: datum.link,
-            verified: datum.verified,
-            seeders: datum.seeds,
-            leechers: datum.leechs,
-            size: datum.size,
-            dateCreated: datum.pubDate,
-            hash: datum.hash,
-            category: datum.category,
-            meta: datum
+          title: datum.title,
+          torrentUrl: datum.torrentLink,
+          link: datum.link,
+          verified: datum.verified,
+          seeders: datum.seeds,
+          leechers: datum.leechs,
+          size: datum.size,
+          dateCreated: datum.pubDate,
+          hash: datum.hash,
+          category: datum.category,
+          meta: datum
         torrents.push t
       return callback null, torrents
