@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     var downloadTorrent = function(torrent) {
         $.post("/api/transmission", {
-            url: torrent.torrentLink
+            url: torrent.torrentUrl
         }).done(function(data) {
             console.log(data);
         });
