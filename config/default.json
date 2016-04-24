@@ -1,0 +1,17 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "nedb": "../data/",
+  "public": "../public/",
+  "auth": {
+    "token": {
+      "secret": "CGcKD+C/F7hkLbz++C6JEKZ6eejLqDgaJswUCeAdzMAYtt89SZ5I1z+C5HRSPw5bnQEp+NnBXLsjreZ/9ZvkMg=="
+    },
+    "local": {}
+  },
+  "twilio": {
+      "phone": "TWILIO_PHONE",
+      "authToken": "TWILIO_ACCOUNT_SID",
+      "accountSid": "TWILIO_AUTH_TOKEN"
+  }
+}

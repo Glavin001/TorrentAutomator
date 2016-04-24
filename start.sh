@@ -12,4 +12,4 @@ cp transmission_settings.json "$TRANSMISSION_CONFIG_DIR/settings.json"
 transmission-daemon --config-dir "$TRANSMISSION_CONFIG_DIR"
 
 # Start the application
-npm start
+NODE_ENV=resin npm start

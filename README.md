@@ -1,116 +1,57 @@
-[TorrentAutomator](https://github.com/Glavin001/TorrentAutomator) [![Build Status](https://travis-ci.org/Glavin001/TorrentAutomator.svg?branch=master)](https://travis-ci.org/Glavin001/TorrentAutomator)
-================
+# TorrentAutomator
 
-> Automate the task of searching for Torrents ( [Kickass](http://kickass.to/), [YIFY](https://yts.re/), [EZTV](http://eztv.it/) ) and sending them to [Transmission](https://www.transmissionbt.com/) or [uTorrent](http://www.utorrent.com/) to download.
+> Automate the task of searching for Torrents and sending them to Transmission-Daemon to download. 
 
-## Installation
+## About
 
-### 1. Download the Project
+This project uses [Feathers](http://feathersjs.com). An open source web  framework for building modern real-time applications.
 
-Clone it with Git, and update with `git pull`.
+## Getting Started
 
-### 2. Install [Node.js](http://nodejs.org/) and Dependencies
+Getting up and running is as easy as 1, 2, 3.
 
-See [Node.js's website](http://nodejs.org/).
+1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
+2. Install your dependencies
+    
+    ```
+    cd path/to/TorrentAutomator; npm install
+    ```
 
-After installing [Node.js](http://nodejs.org/),
-install [Bower](http://bower.io/) and
-[CoffeeScript](http://coffeescript.org/).
+3. Start your app
+    
+    ```
+    npm start
+    ```
 
-```bash
-npm install -g bower
-npm install -g coffee-script
-```
+## Testing
 
-Now that you have [Node.js](http://nodejs.org/)
-and [Bower](http://bower.io/), you can install the dependencies.
-Change into this downloaded project directory and run:
+Simply run `npm test` and all your tests in the `test/` directory will be run.
 
-```bash
-npm install
-bower install
-```
+## Scaffolding
 
-### 3. Configure Your Server
-
-Create `config.json` in the project's directory.
-
-Here is a sample `config.json`:
-
-```json
-{
-    "server": {
-      "port": 8000
-    },
-    "transmission": {
-        "host": "localhost",
-        "port": 9091,
-        "username": "USERNAME",
-        "password": "PASSWORD"
-    },
-    "twilio": {
-      "phone": "15555555555",
-      "accountSid": "TWILIO_ACCOUNT_SID",
-      "authToken": "TWILIO_AUTH_TOKEN"
-    },
-    "downloadDirs": {
-      "Movies": "/Media/Movies",
-      "TV Shows": {
-        "template": "/Media/TV Shows/{{show_name}}/Season {{season}}",
-        "default": null
-      }
-    }
-}
-```
-
-Setup your [Transmission server](https://www.transmissionbt.com/) and
-change the above Transmission configuration.
-
-Sign up for [Twilio](https://www.twilio.com) and
-change the above Twilio configuration.
-Configure your Twilio's phone number to send text messages to
-your TorrentAutomator server.
-
-## Usage
-
-After you're completely done the setup above
-you can start the [TorrentAutomator](https://github.com/Glavin001/TorrentAutomator) server.
-
-```bash
-coffee server/
-```
-
-Or
-
-```bash
-./server/index.coffee
-```
-
-The you can either:
-
-### Connect to the Web app
-
-In your web-browser go to `http://localhost:8000/`.
-Modify your address for the correct server IP address and
-port number as configured above.
-
-### Text the Server with Twilio
-
-Text your Twilio phone number with commands such as the following:
+Feathers has a powerful command line interface. Here are a few things it can do:
 
 ```
-Search for <torrent search keyword>
+$ npm install -g feathers-cli             # Install Feathers CLI
+
+$ feathers generate service               # Generate a new Service
+$ feathers generate hook                  # Generate a new Hook
+$ feathers generate model                 # Generate a new Model
+$ feathers help                           # Show all commands
 ```
 
-```
-Download <selection number from previous "Search for" request>
-```
+## Help
 
-```
-Show downloads
-```
+For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
 
-## Disclaimer
+## Changelog
 
-There are obvious legal issues, with downloading copyrighted material you do not have a license for. 
-We do not endorse such use cases and take no responsibility for the use people make of it.
+__0.1.0__
+
+- Initial release
+
+## License
+
+Copyright (c) 2015
+
+Licensed under the [MIT license](LICENSE).
