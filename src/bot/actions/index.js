@@ -10,5 +10,6 @@ const actionNames = [
   'download-torrents',
   'paginate-torrents'
 ];
-const actions = _.fromPairs(_.map(actionNames, (action)=>[action, require(`./${action}`)]));
-module.exports = actions;
+module.exports = _.fromPairs(_.map(actionNames, (action) => {
+  return [action, require(`./${action}`)];
+}));

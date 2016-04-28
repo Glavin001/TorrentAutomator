@@ -13,5 +13,11 @@
       "phone": "TWILIO_PHONE",
       "authToken": "TWILIO_ACCOUNT_SID",
       "accountSid": "TWILIO_AUTH_TOKEN"
+  },
+  "slack": {
+    "token": "SLACK_TOKEN"
+  },
+  "wit": {
+    "token": "WIT_TOKEN"
   }
 }

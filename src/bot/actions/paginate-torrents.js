@@ -1,4 +1,7 @@
 'use strict';
+const pageSize = 5;
+const ListTorrents = require('./list-torrents');
+
 module.exports = (sessionId, context, cb) => {
   console.log('torrents_index', context.torrents_index, context.page_direction);
   if (context.page_direction) {
@@ -17,5 +20,5 @@ module.exports = (sessionId, context, cb) => {
   if (context.torrents_index < 1) {
     context.torrents_index = 1;
   }
-  return actions['list-torrents'](sessionId, context, cb);
+  return ListTorrents(sessionId, context, cb);
 };
